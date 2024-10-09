@@ -995,6 +995,8 @@ export async function handler(chatUpdate) {
 				if (!isNumber(settings.restartDB)) settings.restartDB = 0
 				if (!('backup' in settings)) settings.backup = false
 				if (!isNumber(settings.backupDB)) settings.backupDB = 0
+    if (!('resetlimit' in settings)) settings.resetlimit = false
+				if (!isNumber(settings.resetlimitDB)) settings.resetlimitDB = 0
 				if (!('cleartmp' in settings)) settings.cleartmp = false
 				if (!isNumber(settings.lastcleartmp)) settings.lastcleartmp = 0
 				if (!isNumber(settings.status)) settings.status = 0
@@ -1009,6 +1011,8 @@ export async function handler(chatUpdate) {
 				restartDB: 0,
 				backup: false,
 				backupDB: 0,
+                resetlimit: false,
+				resetlimitDB: 0,
 				cleartmp: false,
 				lastcleartmp: 0,
 				status: 0,
