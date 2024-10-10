@@ -25,6 +25,27 @@
 
 - Genshin impact Group WhatsApp [`Here`](https://chat.whatsapp.com/LZCnnSQFPkF3C6zrDcH5n8)
 
+## Script features
+
+| features |
+|----------|
+| Ai Menu |
+| Anime Menu |
+| Download Menu |
+| Fun Menu |
+| Game Menu |
+| Group Menu |
+| info Menu |
+| Internet Menu |
+| Islamic Menu |
+| Main Menu |
+| Maker Menu |
+| Premium Menu |
+| Owner Menu |
+| Quotes Menu |
+| Rpg Menu |
+| Stiker Menu |
+| Tools Menu |
 
 ## Price Script No Encryption 
 
