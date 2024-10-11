@@ -1,8 +1,6 @@
-let handler = async (m, { conn, text, isROwner, isOwner }) => {
+let handler = async (m, { conn, text }) => {
   if (text) {
-    if (isROwner) global.conn.bye = text
-    else if (isOwner) conn.bye = text
-    else global.db.data.chats.sBye = text
+    global.db.data.chats[m.chat].sBye = text
     m.reply('Bye berhasil diatur\n@user (Mention)')
   } else throw 'Teksnya mana?'
 }
