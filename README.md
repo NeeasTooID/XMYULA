@@ -119,8 +119,7 @@ global.maximus = '' // [OPSIONAL] isi dengan link thumbnail kalian. link ini aka
   
 - BetaBotz API [`Website`](https://api.betabotz.eu.org) ```Must Use```
   
-- Botcahx API [`Website`](https://api.botcahx.eu.org)
-```Must Use```
+- Botcahx API [`Website`](https://api.botcahx.eu.org) ```Must Use```
 
 After registering and getting an apikey, you can paste your apikey in config.js 
 
@@ -151,10 +150,10 @@ global.APIKeys = {
 
 ## FOR WINDOWS/VPS/RDP USERS
 
-* Unduh & Instal Git [`Click here`](https://git-scm.com/downloads)
-* Unduh & Instal NodeJS [`Click here`](https://nodejs.org/en/download) (**Jangan Gunakan Nodejs Versi 20**)
-* Unduh & Instal FFmpeg [`Click here`](https://ffmpeg.org/download.html) (**Jangan Lupa Tambahkan FFmpeg ke variabel lingkungan PATH**)
-* Unduh & Instal ImageMagick [`Click here`](https://imagemagick.org/script/download.php)
+* Download & Install Git [`Click here`](https://git-scm.com/downloads)
+* Download & Install NodeJS [`Click here`](https://nodejs.org/en/download) (**Don't Use Nodejs Version 20**)
+* Download & Install FFmpeg [`Click here`](https://ffmpeg.org/download.html) (**Don't Forget to Add FFmpeg to the PATH environment variable**)
+* Download & Install ImageMagick [`Click here`](https://imagemagick.org/script/download.php)
 
 ```bash
 git clone https://github.com/XM4ZE/XMYULA-MD
