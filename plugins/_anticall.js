@@ -1,28 +1,16 @@
-const { WAMessageStubType } = (await import('@adiwajshing/baileys')).default;
-import { format } from 'util';
-
 let handler = m => m
-
-const isNumber = x => typeof x === 'number' && !isNaN(x)
-const delay = ms => isNumber(ms) && new Promise(resolve => setTimeout(function () {
-    clearTimeout(this)
-    resolve()
-}, ms))
-
-const setting = {
-  anticall: true
+handler.before = async function (m) {
+  this.ev.on('call', async (call) => {
+    if (call[0].status === 'offer') {
+      await this.sendMessage(call[0].from, {
+        text: `*## Sorry, Your Number is Banneds*\n\nWe understand that you may be frustrated that your account has been suspended. We implement this policy to maintain a safe and friendly environment for all users.\n\nYour account was suspended because you violated our terms of service by calling a bot. We apologize for the inconvenience, but this behavior cannot be tolerated.\n\nIf you believe an error has occurred, please contact our support team via email [ *${global.mail}* ] and explain your situation.\n\nThank you for your understanding.`,
+        quoted: call[0]
+      });
+      await this.rejectCall(call[0].id, call[0].from);
+      global.db.data.users[call[0].from].banned = true;
+      await this.updateBlockStatus(call[0].from, "block");
+    }
+  });
 }
 
-handler.all = async function (m) {
-  if (m.fromMe && m.isBaileys) return !0
-  let text;
-  if (!setting.anticall) return 
-
-  if (m.messageStubType === (WAMessageStubType.CALL_MISSED_VOICE || WAMessageStubType.CALL_MISSED_VIDEO)) {
-    await this.reply(m.chat, '*Your number is blocked!*\nSee you next time👋', null)
-    await delay(1000)
-    await this.updateBlockStatus(m.chat, "block")
-  }
-}
-
-export default handler;
+export default handler
