@@ -17,7 +17,7 @@ async function downloadTikTok(link, m) {
 				await sleep(3000)
 			}
 		} else {
-			await conn.sendFile(m.chat, video[0], null, `*Tiktok Downloader*`, m);
+			await conn.sendFile(m.chat, data.result.video[0], null, `*Tiktok Downloader*`, m);
 		}
 		return;
 	} catch (error) {
