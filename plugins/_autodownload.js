@@ -4,6 +4,7 @@ const sleep = (ms) => {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// DOWNLOADER TIKTOD
 async function downloadTikTok(link, m) {
 	try {
 		const response = await fetch(`https://api.botcahx.eu.org/api/dowloader/tiktok?url=${link}&apikey=${btc}`);
@@ -25,6 +26,29 @@ async function downloadTikTok(link, m) {
 	}
 }
 
+// DOWNLOADER DOUYIN
+async function downloadDouyin(link, m) {
+	try {
+	    const response = await fetch(`https://api.botcahx.eu.org/api/dowloader/douyin?url=${link}&apikey=${btc}`);        
+        const data = await response.json();
+		if (!data.result.video) {
+			return;
+		}
+		if (data.result.video.length > 1) {
+			for (let v of data.result.video) {
+				await conn.sendFile(m.chat, v, null, `*Douyin Downloader*`, m);
+				await sleep(3000)
+			}
+		} else {
+			await conn.sendFile(m.chat, data.result.video[0], null, `*Douyin Downloader*`, m);
+		}
+		return;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+// DOWNLOADER INSTAGRAM 
 async function downloadInstagram(link, m) {
 	try {
 		const response = await fetch(`https://api.botcahx.eu.org/api/dowloader/igdowloader?url=${link}&apikey=${btc}`);
@@ -43,6 +67,7 @@ async function downloadInstagram(link, m) {
 	}
 }
 
+// DOWNLOADER FACEBOOK 
 async function downloadFacebook(link, m) {
 	try {
 		const response = await fetch(`https://api.botcahx.eu.org/api/dowloader/fbdown3?url=${link}&apikey=${btc}`);
@@ -63,7 +88,7 @@ async function downloadFacebook(link, m) {
 		console.error(error);
 	}
 }
-
+/**=========================================**/
 export async function before(m, {
 	conn,
 	isPrems
@@ -94,6 +119,7 @@ export async function before(m, {
 	let text = m.text.replace(/\n+/g, ' ');
 
 	const tiktokRegex = /^(?:https?:\/\/)?(?:www\.|vt\.|vm\.|t\.)?(?:tiktok\.com\/)(?:\S+)?$/i;
+	const douyinRegex = /^(?:https?:\/\/)?(?:www\.|vt\.|vm\.|t\.|v\.)?(?:douyin\.com\/)(?:\S+)?$/i;
 	const instagramRegex = /^(?:https?:\/\/)?(?:www\.)?(?:instagram\.com\/)(?:tv\/|p\/|reel\/)(?:\S+)?$/i;
 	const facebookRegex = /^(?:https?:\/\/(web\.|www\.|m\.)?(facebook|fb)\.(com|watch)\S+)?$/i;
 
@@ -105,6 +131,14 @@ export async function before(m, {
 			}
 		})
 		await downloadTikTok(text.match(tiktokRegex)[0], m);
+	} else if (text.match(douyinRegex)) {
+	    conn.sendMessage(m.chat, {
+			react: {
+				text: '🌐',
+				key: m.key,
+			}
+		})
+	await downloadDouyin(text.match(douyinRegex)[0], m);
 	} else if (text.match(instagramRegex)) {
 		conn.sendMessage(m.chat, {
 			react: {
