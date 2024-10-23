@@ -18,7 +18,7 @@ async function downloadTikTok(link, m) {
 				await sleep(3000)
 			}
 		} else {
-			await conn.sendFile(m.chat, data.result.video[0], null, `*Tiktok Downloader*`, m);
+			await conn.sendMessage(m.chat, { video: { url: data.result.video[0] }, caption: `*Tiktok Downloader*` }, { mention: m })
 		}
 		return;
 	} catch (error) {
@@ -40,7 +40,7 @@ async function downloadDouyin(link, m) {
 				await sleep(3000)
 			}
 		} else {
-			await conn.sendFile(m.chat, data.result.video[0], null, `*Douyin Downloader*`, m);
+			await conn.sendMessage(m.chat, { video: { url: data.result.video[0] }, caption: `*Douyin Downloader*` }, { mention: m })
 		}
 		return;
 	} catch (error) {
@@ -56,12 +56,10 @@ async function downloadInstagram(link, m) {
 
 		const limit = 3;
 
-		const promises = data.result.slice(0, limit).map(image => {
-			return conn.sendFile(m.chat, image.url, null, `*Instagram Downloader*`, m);
-		});
-
-		await Promise.all(promises);
-
+		for (let i = 0; i < Math.min(limit, data.result.length); i++) {
+		    await sleep(3000)
+            return conn.sendFile(m.chat, data.result[i].url, null, `*Instagram Downloader*`, m)
+		}
 	} catch (error) {
 		console.error(error);
 	}
@@ -73,12 +71,11 @@ async function downloadFacebook(link, m) {
 		const response = await fetch(`https://api.botcahx.eu.org/api/dowloader/fbdown3?url=${link}&apikey=${btc}`);
 		const data = await response.json();
 		const urls = data.result.url.urls;
-		const liimit = global.db.data.users[m.sender].limit
 
 		if (Array.isArray(urls)) {
 			for (let url of urls) {
 				if (url.sd) {
-					await conn.sendFile(m.chat, url.sd, 'fb.mp4', `*Facebook Downloader*`, m);
+					await conn.sendMessage(m.chat, { video: { url: url.sd }, caption: `*Facebook Downloader*` }, { mention: m })
 					break;
 				}
 			}
