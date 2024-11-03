@@ -39,7 +39,7 @@
     },
     "license": "MIT",
     "dependencies": {
-        "@adiwajshing/baileys": "github:Akkun3704/Baileys",
+        "@adiwajshing/baileys": "github:XM4ZE/Baileys",
         "@bochilteam/scraper": "^4.2.4",
         "@vitalets/google-translate-api": "^9.2.0",
         "@xct007/frieren-scraper": "npm:@xct007/frieren-scraper@latest",

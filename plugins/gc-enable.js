@@ -15,6 +15,8 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
 *• antilinkdelete*
 *• antilinkwa* 
 *• antiporn* 
+*• antiacara* 
+*• antifile* 
 *• antiaudio* 
 *• antifoto* 
 *• antipolling* 
@@ -201,6 +203,24 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
                 }
             }
             chat.antiAudio = isEnable
+            break
+        case 'antiacara':
+            if (m.isGroup) {
+                if (!(isAdmin || isOwner)) {
+                    global.dfail('admin', m, conn)
+                    throw false
+                }
+            }
+            chat.antiAcara = isEnable
+            break
+        case 'antifile':
+            if (m.isGroup) {
+                if (!(isAdmin || isOwner)) {
+                    global.dfail('admin', m, conn)
+                    throw false
+                }
+            }
+            chat.antiDoc = isEnable
             break
         case 'antivideo':
             if (m.isGroup) {

@@ -902,10 +902,22 @@ export async function handler(chatUpdate) {
 					chat.sPromote = ''
 				if (!('sDemote' in chat))
 					chat.sDemote = ''
+			    if (!('openTime' in chat))
+					chat.openTime = ''
+				if (!('closeTime' in chat))
+					chat.closeTime = ''
+				if (!('ocStatus' in chat))
+					chat.ocStatus = false
 				if (!('listStr' in chat))
 					chat.listStr = {}
 				if (!('delete' in chat))
 					chat.delete = true
+			    if (!('antiAudio' in chat))
+					chat.antiAudio = false
+				if (!('antiAcara' in chat))
+					chat.antiAcara = false
+				if (!('antiDoc' in chat))
+					chat.antiDoc = false
 				if (!('antiLinkkick' in chat))
 					chat.antiLinkkick = false
 				if (!('antiLinkdelete' in chat))
@@ -918,12 +930,10 @@ export async function handler(chatUpdate) {
 					chat.antiLinkWa = false
 				if (!('antiFoto' in chat))
 					chat.antiFoto = false
-			    if (!('antiVideo' in chat))
-					chat.antiVideo = false
 				if (!('antiPolling' in chat))
 					chat.antiPolling = false
-				if (!('antiAudio' in chat))
-					chat.antiAudio = false
+				if (!('antiVideo' in chat))
+					chat.antiVideo = false
 				if (!('antiPorn' in chat))
 					chat.antiPorn = false
 				if (!('viewonce' in chat))
@@ -959,6 +969,9 @@ export async function handler(chatUpdate) {
 					sBye: '',
 					sPromote: '',
 					sDemote: '',
+					openTime: '',
+					closeTime: '',
+					ocStatus: false,
 					listStr: {},
 					delete: true,
 					antiLinkkick: false,
@@ -969,6 +982,8 @@ export async function handler(chatUpdate) {
 					antiVideo: false,
 					antiPolling: false,
 					antiAudio: false,
+					antiAcara: false,
+					antiDoc: false,
 					antiPorn: false,
 					antiSticker: false,
 					viewonce: false,
@@ -995,7 +1010,7 @@ export async function handler(chatUpdate) {
 				if (!isNumber(settings.restartDB)) settings.restartDB = 0
 				if (!('backup' in settings)) settings.backup = false
 				if (!isNumber(settings.backupDB)) settings.backupDB = 0
-    if (!('resetlimit' in settings)) settings.resetlimit = false
+				if (!('resetlimit' in settings)) settings.resetlimit = false
 				if (!isNumber(settings.resetlimitDB)) settings.resetlimitDB = 0
 				if (!('cleartmp' in settings)) settings.cleartmp = false
 				if (!isNumber(settings.lastcleartmp)) settings.lastcleartmp = 0
@@ -1011,7 +1026,7 @@ export async function handler(chatUpdate) {
 				restartDB: 0,
 				backup: false,
 				backupDB: 0,
-                resetlimit: false,
+				resetlimit: false,
 				resetlimitDB: 0,
 				cleartmp: false,
 				lastcleartmp: 0,
@@ -1037,9 +1052,9 @@ export async function handler(chatUpdate) {
 			m.text = ''
 
 		const isROwner = [global.conn.user.jid, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-		const isOwner = isROwner || m.fromMe
-		const isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-		const isPrems = isROwner || (db.data.users[m.sender].premiumTime > 0 || db.data.users[m.sender].premium)
+		const isOwner = isROwner
+		const isMods = isOwner || m.fromMe || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+		const isPrems = isROwner || isMods || (db.data.users[m.sender].premiumTime > 0 || db.data.users[m.sender].premium)
 
 		if (opts['queque'] && m.text && !(isMods || isPrems)) {
 			let queque = this.msgqueque,
@@ -1258,8 +1273,8 @@ export async function handler(chatUpdate) {
 				}
 				let isCmddd = /^[°•π÷×¶∆£¢€¥®™+✓_=|~!?@#$%^&.©^]/gi.test(m.text)
 				if (isCmddd && !isPrems && !m.isGroup) {
-					//this.sendMessage(m.chat, { text: `⚠️ Menggunakan bot dalam obrolan pribadi hanya untuk pengguna premium.\n\n*PREMIUM USER PRICE LIST*\n\n*3 Day premium*\n- OrderID: 3\n- Price: Rp. 5.000 IDR\n\n*7 Day premium*\n- OrderID: 7\n- Price: Rp. 10.000 IDR\n\n*30 Day premium*\n- OrderID: 30\n- Price: Rp. 15.000 IDR\n\n*60 Day premium*\n- OrderID: 60\n- Price: Rp. 30.000 IDR\n\n*90 Day premium*\n- OrderID: 90\n- Price: Rp. 40.000 IDR\n\n*365 Day premium*\n- OrderID: 365\n- Price: Rp. 115.000 IDR\n\nTolong ikuti cara pembayaran ini.\n\nSilahkan tulis seperti ini : *.order <OrderID>*\nContoh: *.order 30*\n\nJika anda terlalu bodoh. anda bisa langsung menghubungi nomor owner kami melalui link di bawah ini:\nwa.me/${global.info.nomorown}\n\nThank you for using our bot #MaximusStore`, contextInfo: { mentionedJid: [m.sender], externalAdReply: { title: '', body: '', thumbnailUrl: "https://telegra.ph/file/0b32e0a0bb3b81fef9838.jpg", sourceUrl: "", mediaType: 1, renderLargerThumbnail: true }} })
-					continue
+			       // this.sendMessage(m.chat, { text: `⚠️ Menggunakan bot dalam obrolan pribadi hanya untuk pengguna premium.\n\n*PREMIUM USER PRICE LIST*\n\n*3 Day premium*\n- OrderID: 3\n- Price: Rp. 5.000 IDR\n\n*7 Day premium*\n- OrderID: 7\n- Price: Rp. 10.000 IDR\n\n*30 Day premium*\n- OrderID: 30\n- Price: Rp. 15.000 IDR\n\n*60 Day premium*\n- OrderID: 60\n- Price: Rp. 30.000 IDR\n\n*90 Day premium*\n- OrderID: 90\n- Price: Rp. 40.000 IDR\n\n*365 Day premium*\n- OrderID: 365\n- Price: Rp. 115.000 IDR\n\nTolong ikuti cara pembayaran ini.\n\nSilahkan tulis seperti ini : *.order <OrderID>*\nContoh: *.order 30*\n\nJika anda terlalu bodoh. anda bisa langsung menghubungi nomor owner kami melalui link di bawah ini:\nwa.me/${global.info.nomorown}\n\nThank you for using our bot #MaximusStore`, contextInfo: { mentionedJid: [m.sender], externalAdReply: { title: '', body: '', thumbnailUrl: "https://telegra.ph/file/0b32e0a0bb3b81fef9838.jpg", sourceUrl: "", mediaType: 1, renderLargerThumbnail: true }} })
+			    	continue
 				}
 				let extra = {
 					match,
@@ -1314,7 +1329,7 @@ export async function handler(chatUpdate) {
 						}
 					}
 					/*if (m.limit)
-					   await m.reply('Kamu menggunakan fitur limit\n╰► - 1 Limit')*/ // lain kali jangan lupa tanda kurung nya ya! ... fixed by Fokusdotid (Fokus ID)
+					   await m.reply('Kamu menggunakan fitur limit\n╰► - 1 Limit')*/
 				}
 				break
 			}
@@ -1405,27 +1420,27 @@ export async function participantsUpdate({
 					} catch (e) {} finally {
 						text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc ? String.fromCharCode(8206).repeat(4001) + groupMetadata.desc : '') :
 							(chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
-					    let masukAhh = "https://telegra.ph/file/6922e4375c183c8d1cfcb.jpg"
-						let wel = global.welcome ? global.welcome : masukAhh
-						let keluarAhh = "https://telegra.ph/file/8c7792e78ed015a7d0a59.jpg";
-						let lea = global.leave ? global.leave : keluarAhh
+						let wel = 'https://telegra.ph/file/6922e4375c183c8d1cfcb.jpg' //https://telegra.ph/file/96c857aa540aef7d385eb.jpg
+						let lea = 'https://telegra.ph/file/8c7792e78ed015a7d0a59.jpg' //https://telegra.ph/file/999b3af6dac1b48769ee6.jpg
+						
+						await this.sendMessage(id, { text: text, contextInfo: { mentionedJid: [user] }}, { quoted: null })
 
-						await this.sendMessage(id, {
-							text: text,
-							contextInfo: {
-								mentionedJid: [user],
-								externalAdReply: {
-									title: await this.getName(id),
-									body: '𝙶𝚛𝚘𝚞𝚙 𝙽𝚘𝚝𝚒𝚏𝚒𝚌𝚊𝚝𝚒𝚘𝚗',
-									thumbnailUrl: action === 'add' ? wel : lea,
-									sourceUrl: '',
-									mediaType: 1,
-									renderLargerThumbnail: true
-								}
-							}
-						}, {
-							quoted: null
-						})
+//						await this.sendMessage(id, {
+//							text: text,
+//							contextInfo: {
+//								mentionedJid: [user],
+//								externalAdReply: {
+//									title: await this.getName(id),
+//									body: '𝙶𝚛𝚘𝚞𝚙 𝙽𝚘𝚝𝚒𝚏𝚒𝚌𝚊𝚝𝚒𝚘𝚗',
+//									thumbnailUrl: action === 'add' ? wel : lea,
+//									sourceUrl: '',
+//									mediaType: 1,
+//									renderLargerThumbnail: true
+//								}
+//							}
+//						}, {
+//							quoted: null
+//						})
 					}
 				}
 			}
@@ -1513,31 +1528,10 @@ global.dfail = (type, m, conn) => {
 		game: 'This Command Has Not Been Activated In This Group.\n\n> Enable This Feature By Writing *.enable game*',
 		xmaze: 'This group does not allow this feature to be used. please join this group:\nhttps://chat.whatsapp.com/FJRtTzRKxP8A2wT6fcCW3s\n\n disable this feature by writing .enable allfitur',
 		restrict: '*FEATURES TURNED OFF BY OWNERS*',
-		unreg: '*Please register first by writing \`#register name.age\`\n* Once you are registered, then you can use this command.\n\n*Registration example:*\n\n\`#register Mulyono.45\`\n\n*Notes:*\n* Make sure you write your name and age correctly.\n* You only need to register once.'
+		unreg: '*Please register first by writing \`#register name.age\`*\n* Once you are registered, then you can use this command.\n\n*Registration example:*\n\n\`#register Mulyono.45\`\n\n*Notes:*\n* Make sure you write your name and age correctly.\n* You only need to register once.'
 	} [type]
 
-	if (msg) return conn.sendMessage(m.chat, {
-		text: msg,
-		contextInfo: {
-			forwardingScore: 1,
-			isForwarded: true,
-			forwardedNewsletterMessageInfo: {
-				newsletterJid: global.info.channel,
-				serverMessageId: null,
-				newsletterName: global.info.namechannel,
-			},
-			externalAdReply: {
-				title: global.info.namebot + ` © 2024`,
-				body: 'Powered By XM4ZE',
-				thumbnailUrl: 'https://telegra.ph/file/8ddbb1905c4f3357bf82c.jpg',
-				sourceUrl: "",
-				mediaType: 1,
-				renderLargerThumbnail: true
-			},
-		},
-	}, {
-		quoted: m
-	})
+	if (msg) return m.reply('\`ACCESS DENIED\`\n\n' + msg)
 }
 
 let file = global.__filename(import.meta.url, true)
