@@ -18,7 +18,14 @@ async function downloadTikTok(link, m) {
 				await sleep(3000)
 			}
 		} else {
-			await conn.sendMessage(m.chat, { video: { url: data.result.video[0] }, caption: `*Tiktok Downloader*` }, { mention: m })
+			await conn.sendMessage(m.chat, {
+				video: {
+					url: data.result.video[0]
+				},
+				caption: `*Tiktok Downloader*`
+			}, {
+				mention: m
+			})
 		}
 		return;
 	} catch (error) {
@@ -29,22 +36,40 @@ async function downloadTikTok(link, m) {
 // DOWNLOADER DOUYIN
 async function downloadDouyin(link, m) {
 	try {
-	    const response = await fetch(`https://api.botcahx.eu.org/api/dowloader/douyin?url=${link}&apikey=${btc}`);        
-        const data = await response.json();
-		if (!data.result.video) {
+		const videoResponse = await fetch(`https://api.botcahx.eu.org/api/dowloader/douyin?url=${link}&apikey=${btc}`);
+		const videoData = await videoResponse.json();
+
+		if (videoData.result.video) {
+			await conn.sendMessage(m.chat, {
+				video: {
+					url: videoData.result.video[0]
+				},
+				caption: `*Douyin Downloader*`
+			}, {
+				mention: m
+			});
 			return;
 		}
-		if (data.result.video.length > 1) {
-			for (let v of data.result.video) {
-				await conn.sendFile(m.chat, v, null, `*Douyin Downloader*`, m);
-				await sleep(3000)
-			}
-		} else {
-			await conn.sendMessage(m.chat, { video: { url: data.result.video[0] }, caption: `*Douyin Downloader*` }, { mention: m })
-		}
-		return;
 	} catch (error) {
-		console.error(error);
+		try {
+			const slideResponse = await fetch(`https://api.botcahx.eu.org/api/download/douyinslide?url=${link}&apikey=${btc}`);
+			const slideData = await slideResponse.json();
+
+			for (let v of slideData.result.images) {
+				await conn.sendMessage(m.chat, {
+					image: {
+						url: v
+					},
+					caption: `*Douyin Slide Downloader*`
+				}, {
+					mention: m
+				});
+				await sleep(3000);
+			}
+			return;
+		} catch (error) {
+			console.error(error);
+		}
 	}
 }
 
@@ -57,8 +82,8 @@ async function downloadInstagram(link, m) {
 		const limit = 3;
 
 		for (let i = 0; i < Math.min(limit, data.result.length); i++) {
-		    await sleep(3000)
-            return conn.sendFile(m.chat, data.result[i].url, null, `*Instagram Downloader*`, m)
+			await sleep(3000)
+			return conn.sendFile(m.chat, data.result[i].url, null, `*Instagram Downloader*`, m)
 		}
 	} catch (error) {
 		console.error(error);
@@ -75,7 +100,14 @@ async function downloadFacebook(link, m) {
 		if (Array.isArray(urls)) {
 			for (let url of urls) {
 				if (url.sd) {
-					await conn.sendMessage(m.chat, { video: { url: url.sd }, caption: `*Facebook Downloader*` }, { mention: m })
+					await conn.sendMessage(m.chat, {
+						video: {
+							url: url.sd
+						},
+						caption: `*Facebook Downloader*`
+					}, {
+						mention: m
+					})
 					break;
 				}
 			}
@@ -129,13 +161,13 @@ export async function before(m, {
 		})
 		await downloadTikTok(text.match(tiktokRegex)[0], m);
 	} else if (text.match(douyinRegex)) {
-	    conn.sendMessage(m.chat, {
+		conn.sendMessage(m.chat, {
 			react: {
 				text: '🌐',
 				key: m.key,
 			}
 		})
-	await downloadDouyin(text.match(douyinRegex)[0], m);
+		await downloadDouyin(text.match(douyinRegex)[0], m);
 	} else if (text.match(instagramRegex)) {
 		conn.sendMessage(m.chat, {
 			react: {
