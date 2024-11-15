@@ -1,6 +1,5 @@
 import uploadFile from '../lib/uploadFile.js'
 import uploadImage from '../lib/uploadImage.js'
-import { getDevice } from '@adiwajshing/baileys'
 
 let handler = async (m, command) => {
   let q = m.quoted ? m.quoted : m
@@ -15,9 +14,9 @@ ${media.length} Byte(s)
 ${isTele ? '(Tidak Ada Tanggal Kedaluwarsa)' : '(Tidak diketahui)'}
 `
 
-  if (!/all/.test(command) && await getDevice(m.key.id) == 'android') {
-  await conn.sendButton(m.chat, max, wm, 'https://files.catbox.moe/nz6pwc.jpg', [['Salin / Copy',link,'cta_copy']], m)
-   } else conn.sendMessage(m.chat, {
+m.reply(max)
+
+/*  conn.sendMessage(m.chat, {
                 text: max,
                 contextInfo: {
                     externalAdReply: {
@@ -30,7 +29,7 @@ ${isTele ? '(Tidak Ada Tanggal Kedaluwarsa)' : '(Tidak diketahui)'}
                         renderLargerThumbnail: true
                     }
                 }
-            })
+            })*/
 }
 handler.help = ['tourl <reply image/video>']
 handler.tags = ['tools']
