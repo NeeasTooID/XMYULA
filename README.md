@@ -12,8 +12,12 @@
 - Use QR Code: ```node index.js```
 - Use Pairing Code: ```node index.js --pairing```
 
+## SCAMMER NUMBER FREE
 
+- Whatsapp: ```6285183396693```
+- No Dana: ```088212898608```
 
+```SC INI DI JUAL 30K JIR. PADAHAL FREE 😂```
 
 ## MY GROUPS & NUMBERS
 
