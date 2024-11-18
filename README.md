@@ -14,7 +14,8 @@
 
 ## SCAMMER NUMBER FREE
 
-- Whatsapp: ```6285183396693```
+- Whatsapp1: ```6285183396693``` Anap
+- Whatsapp2: ```6285183397447``` Anap
 - No Dana: ```088212898608```
 
 ```SC INI DI JUAL 30K JIR. PADAHAL FREE 😂```

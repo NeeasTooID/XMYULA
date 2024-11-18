@@ -3,7 +3,7 @@ let handler = async (m, { conn, command, text }) => {
 	try {
 	if (!text) return conn.reply(m.chat, 'Masukan Teksnya', m)
 	let teks = text ? text : m.quoted && m.quoted.text ? m.quoted.text : m.text
-	let res = `https://widipe.com/attp?text=${encodeURIComponent(text.substring(0, 151))}`
+	const res = `https://api.botcahx.eu.org/api/maker/attp?text=${encodeURIComponent(text.substring(0, 151))}&apikey=${btc}`
 	let stiker = await createSticker(res, false, stickpack, stickauth)
 	conn.sendFile(m.chat, stiker, 'maze.webp', '', m, false)
 	} catch (e) {
