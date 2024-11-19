@@ -21,7 +21,7 @@ var handler = async (m, {
 	}
 }
 
-handler.command = handler.help = ['mmk']
+handler.command = handler.help = ['brat']
 handler.tags = ['sticker']
 handler.limit = true;
 handler.register = true;

@@ -15,7 +15,7 @@ let handler = async (m, { conn, args, usedPrefix, DevMode }) => {
         if (args.length < 1) return conn.reply(m.chat, usedPrefix + 'casino <jumlah>\n ' + usedPrefix + 'casino 1000', m)
         if (global.db.data.users[m.sender].exp >= count * 1) {
             global.db.data.users[m.sender].exp -= count * 1
-            //await m.reply('') //Kwkwwkkwlwlw
+
             if (Aku > Kamu) {
                 conn.reply(m.chat, `💰 Casino 💰\n*Kamu:* ${Kamu} Point\n*Computer:* ${Aku} Point\n\n*You LOSE*\nKamu kehilangan ${count} Uang(xp)`.trim(), m)
             } else if (Aku < Kamu) {

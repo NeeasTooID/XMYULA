@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+/**import fetch from 'node-fetch';
 const { getDevice, generateWAMessageFromContent, proto, prepareWAMessageMedia } = (await import('@adiwajshing/baileys')).default
 
 let handler = async (m, { conn, text, args, usedPrefix, command }) => {
@@ -42,4 +42,4 @@ handler.register = false
 handler.premium = false;
 handler.limit = true;
 
-export default handler
+export default handler**/
