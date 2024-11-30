@@ -1,45 +1,113 @@
-/**import fetch from 'node-fetch';
-const { getDevice, generateWAMessageFromContent, proto, prepareWAMessageMedia } = (await import('@adiwajshing/baileys')).default
+/* DI BUAT OLEH XM4ZE
+ * GITHUB:
+ * https://github.com/XM4ZE/XMYULA-MD
+ * Jika kamu menghapus WM ini maka
+ * Kamu bersumpah dengan nama tuhanmu
+ * Kalau kamu GAY
+ */
 
-let handler = async (m, { conn, text, args, usedPrefix, command }) => {
-  if (!(args[0] || '').match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))) return m.reply(`*Example:* \n${usedPrefix}${command} https://youtu.be/pvlDjh_UgvA`)
-  try {
-    let results = await (await fetch(`https://api.betabotz.eu.org/api/download/ytmp3?url=${args[0]}&apikey=${lann}`)).json()
-    let info = results.result;
-    let videoId = info.id;
-    let title = info.title;
-    let thumbnailUrl = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-    let duration = parseInt(info.duration);
-    let source = info.source;
-    let minutes = Math.floor(duration / 60);
-    let seconds = duration % 60;
-    let durationText = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+import yts from "yt-search";
+import fetch from 'node-fetch';
 
-    let infoText = `  ◦ *Title*: ${title}
-  ◦ *Duration*: ${durationText}
-  ◦ *Source*: ${source}
+const handler = async (m, { conn, command, text, args, usedPrefix }) => {
+  if (!text) throw `Gunakan contoh *${usedPrefix + command}* in this shirt`;
+  if (text.startsWith('https://')) return m.reply(`Silahkan gunakan \`.ytmp3 atau .yta\` untuk mendapatkan audio`)
+  conn.youtubeList = conn.youtubeList ? conn.youtubeList : {};
+  await conn.reply(m.chat, wait, m);
+  const result = await yts(text);
+  const infoText = `
+Silahkan pilih salah satu dari list di bawah dengan mereply pesan ini dengan angka yang kamu mau.
+  `;
   
-YTdl By ${global.info.namebot}
-GetInfo By: 
-- api.betabotz.eu.org
-- api.botcahx.eu.org
-Sent By Assistant ${global.info.namebot}`;
+  const limitedVideos = result.videos.slice(0, 10);
 
-      if (!/all/.test(command) && await getDevice(m.key.id) == 'android') {
-  conn.sendButton(m.chat, infoText, global.wm, thumbnailUrl, [['🎵 AUDIO', `.ytmp3 ${args[0]}`],['📹 VIDEO', `.ytmp4 ${args[0]}`]], m)
-  } else conn.reply(m.chat, `*Silahkan tulis ini untuk mendownload audio:*\n> .ytmp3 linkYt\n\n*Silahkan tulis ini untuk mendownload Video:*\n> .ytmp4 linkYt`, m)
+  const orderedLinks = limitedVideos.map((link, index) => {
+    const sectionNumber = index + 1;
+    const { title } = link;
+    return `${sectionNumber}. *${title}*`;
+  });
 
-  } catch (e) {
-    console.log(e);
-    m.reply(`Could not find results. Please enter the URL correctly`);
+  const orderedLinksText = orderedLinks.join("\n\n");
+  const fullText = `${infoText}\n\n${orderedLinksText}`;
+  const { key } = await conn.reply(m.chat, fullText, m);
+  conn.youtubeList[m.sender] = {
+    limitedVideos,
+    key,
+    timeout: setTimeout(() => {
+      conn.sendMessage(m.chat, { delete: key });
+      delete conn.youtubeList[m.sender];
+    }, 60 * 4000),
+  };
+};
+
+handler.before = async (m, { conn }) => {
+  conn.youtubeList = conn.youtubeList ? conn.youtubeList : {};
+  if (m.isBaileys || !(m.sender in conn.youtubeList)) return;
+  const { limitedVideos, key, timeout } = conn.youtubeList[m.sender];
+  if (!m.quoted || m.quoted.id !== key.id || !m.text) return;
+  const choice = m.text.trim();
+  const inputNumber = Number(choice);
+  if (inputNumber >= 1 && inputNumber <= limitedVideos.length) {
+    const selectedUrl = limitedVideos[inputNumber - 1].url;
+    let { result: yt } = await (await fetch(`https://api.betabotz.eu.org/api/download/ytmp3?url=${selectedUrl}&apikey=${lann}`)).json()
+    let infoText = `*AUDIO INFORMATION*
+- *Title:* ${yt.title}
+- *Duration:* ${yt.duration}
+- *Author:* ${yt.source}
+  
+*SENT By*
+- ${global.info.namebot}
+
+AUDIO SEDANG DI KIRIM
+`;
+
+var pesan = conn.sendMessage(m.chat, {
+		text: infoText,
+		contextInfo: {
+			forwardingScore: 9999,
+			isForwarded: true,
+			forwardedNewsletterMessageInfo: {
+				newsletterJid: global.info.channel,
+				serverMessageId: null,
+				newsletterName: global.info.namechannel,
+			},
+			externalAdReply: {
+				title: `ANDA MEMILIH NOMOR ${inputNumber}`,
+				body: ``,
+				thumbnailUrl: yt.thumb,
+				sourceUrl: selectedUrl,
+				mediaType: 1,
+				renderLargerThumbnail: true
+			},
+		},
+	}, {});
+			let doc = {
+				audio: { url: yt.mp3 },
+				mimetype: 'audio/mp4',
+				fileName: `${yt.title}`
+			};
+			await conn.sendMessage(m.chat, doc, {
+				quoted: m
+			});
+    conn.sendMessage(m.chat, { delete: key });
+    clearTimeout(timeout);
+    delete conn.youtubeList[m.sender];
+  } else {
+    m.reply("Nomor urutan tidak valid. Silakan pilih nomor yang sesuai dengan daftar di atas.\nAntara 1 sampai " + limitedVideos.length);
   }
 };
 
-handler.help = ['youtube'].map(v => v + ' url');
-handler.tags = ['downloader'];
+handler.help = ["youtube"];
+handler.tags = ["downloader"];
 handler.command = /^(yt|youtube)$/i;
-handler.register = false
-handler.premium = false;
 handler.limit = true;
+export default handler;
 
-export default handler**/
+
+/* DI BUAT OLEH XM4ZE
+ * GITHUB:
+ * https://github.com/XM4ZE/XMYULA-MD
+ * Jika kamu menghapus WM ini maka
+ * Kamu bersumpah dengan nama tuhanmu
+ * Kalau kamu GAY
+ */
