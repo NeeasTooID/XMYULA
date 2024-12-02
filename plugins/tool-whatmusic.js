@@ -12,7 +12,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 		let json = await (await fetch(`https://api.botcahx.eu.org/api/tools/whatmusic?url=${media}&apikey=${btc}`)).json()		
         conn.sendMessage(m.chat, { text: json.result }, { quoted: m })
         } catch (err) {
-      throw `${eror}`
+      throw eror
     }
  } else throw `Reply audio/video with command ${usedPrefix + command}`
 }
