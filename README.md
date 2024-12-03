@@ -7,49 +7,24 @@
 **Information:**
 - Have used multi auth sessions 
 - Using the latest baileys
+- Update Information [`Whatsapp Newsletter`](https://whatsapp.com/channel/0029VaL28ZqFSAtCdSU5EX0M)
 
 **Run script:**
 ```npm start```
 
-## SCAMMER NUMBER FREE
-
-- Whatsapp1: ```6285183396693``` Anap
-- Whatsapp2: ```6285183397447``` Anap
-- No Dana: ```088212898608```
-
-```SC INI DI JUAL 30K JIR. PADAHAL FREE 😂```
-
-## MY GROUPS & NUMBERS
-
-- Report/Ask [`My Whatsapp`](https://wa.me/6281283516246)
-
-- WhatsApp Group[`Here`](https://chat.whatsapp.com/FJRtTzRKxP8A2wT6fcCW3s)
-
-- WhatsApp Channel [`Here`](https://whatsapp.com/channel/0029VaL28ZqFSAtCdSU5EX0M)
-
-- Genshin impact Group WhatsApp [`Here`](https://chat.whatsapp.com/LZCnnSQFPkF3C6zrDcH5n8)
+**Test script:**
+```npm test```
 
 ## Script features
 
-| features |
-|----------|
-| Ai Menu |
-| Anime Menu |
-| Download Menu |
-| Fun Menu |
-| Game Menu |
-| Group Menu |
-| info Menu |
-| Internet Menu |
-| Islamic Menu |
-| Main Menu |
-| Maker Menu |
-| Premium Menu |
-| Owner Menu |
-| Quotes Menu |
-| Rpg Menu |
-| Stiker Menu |
-| Tools Menu |
+|| features ||
+|----------|----------|----------|
+| Ai Menu | Anime Menu | Download Menu |
+| Fun Menu | Game Menu | Group Menu |
+| info Menu | Internet Menu | Islamic Menu |
+| Main Menu | Maker Menu | Premium Menu |
+| Owner Menu | Quotes Menu | Rpg Menu |
+| Stiker Menu | Tools Menu |
 
 ## Price Script No Encryption 
 
@@ -151,7 +126,6 @@ global.APIKeys = {
 
 
 
-
 ## FOR WINDOWS/VPS/RDP USERS
 
 * Download & Install Git [`Click here`](https://git-scm.com/downloads)
@@ -167,6 +141,21 @@ npm start
 ```
 
 
+## MY GROUPS & NUMBERS
+
+- Report/Ask [`My Whatsapp`](https://wa.me/6281283516246)
+
+- WhatsApp Group[`Here`](https://chat.whatsapp.com/FJRtTzRKxP8A2wT6fcCW3s)
+
+- Genshin impact Group WhatsApp [`Here`](https://chat.whatsapp.com/LZCnnSQFPkF3C6zrDcH5n8)
+
+## SCAMMER NUMBER FREE
+
+- Whatsapp1: ```6285183396693``` Anap
+- Whatsapp2: ```6285183397447``` Anap
+- No Dana: ```088212898608```
+
+```SC INI DI JUAL 30K JIR. PADAHAL FREE 😂```
 
 
 ##### All Contributors
