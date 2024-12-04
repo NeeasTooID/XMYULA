@@ -147,7 +147,7 @@ npm start
 
 - WhatsApp Group[`Here`](https://chat.whatsapp.com/FJRtTzRKxP8A2wT6fcCW3s)
 
-- Genshin impact Group WhatsApp [`Here`](https://chat.whatsapp.com/LZCnnSQFPkF3C6zrDcH5n8)
+- Buy me a coffee [`Buy`](https://telegra.ph/file/f11ccd2ca8a5136aacfb3.jpg)
 
 ## SCAMMER NUMBER FREE
 

@@ -1249,18 +1249,7 @@ export async function handler(chatUpdate) {
 				else
 					m.exp += xp
 				if (!isPrems && plugin.limit && _user.limit < plugin.limit * 1) {
-					this.relayMessage(m.chat, {
-						liveLocationMessage: {
-							degreesLatitude: 42.923901,
-							degreesLongitude: 143.196106,
-							accuracyInMeters: 0,
-							degreesClockwiseFromMagneticNorth: 2,
-							caption: global.pricelist,
-							sequenceNumber: 2,
-							timeOffset: 3,
-							contextInfo: m,
-						}
-					}, {})
+					m.reply(global.pricelist)
 					continue
 				}
 				if (plugin.level > _user.level) {
