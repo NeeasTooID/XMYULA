@@ -28,11 +28,10 @@
 
 ## Price Script No Encryption 
 
-| Name | Index.js | Main.js | Plugins github | Plugins Scraper | Payment getway|harga |
-|-------------|-----|------|-----|-----|-----|-----|
-| Free Script | ❌ | ❌ | ✔️ | ❌ | ❌| Free |
-| Script V1 | ✔️ | ✔️ | ✔️ | ❌ | ✔️ | 150.000 IDR |
-| Script V2 | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | 420.000 IDR |
+| Name | Index.js | Main.js | Payment getway| Price |
+|-------------|-----|------|-----|-----|
+| Free Script | ❌ | ❌ | ❌| 0 IDR |
+| Paid Script | ✔️ | ✔️ | ✔️ | 150.000 IDR |
 
 ## Change NAME, NUMBER Owner and add THUMBNAILS
 
@@ -100,7 +99,7 @@ global.maximus = '' // [OPSIONAL] isi dengan link thumbnail kalian. link ini aka
   
 - Botcahx API [`Website`](https://api.botcahx.eu.org) ```Must Use```
 
-After registering and getting an apikey, you can paste your apikey in config.js 
+After registering and getting an apikey, you can paste your apikey in ```config.js```
 
 ```javascript
 
@@ -129,9 +128,9 @@ global.APIKeys = {
 ## FOR WINDOWS/VPS/RDP USERS
 
 * Download & Install Git [`Click here`](https://git-scm.com/downloads)
-* Download & Install NodeJS [`Click here`](https://nodejs.org/en/download) (**Don't Use Nodejs Version 20**)
-* Download & Install FFmpeg [`Click here`](https://ffmpeg.org/download.html) (**Don't Forget to Add FFmpeg to the PATH environment variable**)
+* Download & Install NodeJS [`Click here`](https://nodejs.org/en/download)
 * Download & Install ImageMagick [`Click here`](https://imagemagick.org/script/download.php)
+* Download & Install FFmpeg [`Click here`](https://ffmpeg.org/download.html) (**Don't Forget to Add FFmpeg to the PATH environment variable**)
 
 ```bash
 git clone https://github.com/XM4ZE/XMYULA-MD
