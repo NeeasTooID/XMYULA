@@ -12,6 +12,7 @@
     },
     "scripts": {
         "start": "node index.js",
+        "pairing": " node index.js --pairing",
         "test": "node test.js"
     },
     "homepage": "https://github.com/XM4ZE/XMYULA-MD",
