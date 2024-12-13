@@ -10,10 +10,12 @@
 - Update Information [`Whatsapp Newsletter`](https://whatsapp.com/channel/0029VaL28ZqFSAtCdSU5EX0M)
 
 **Run script:**
-```npm start```
 
-**Test script:**
-```npm test```
+```npm start``` **Used Terminal QR**
+
+```npm pairing``` **Used Pairing Code**
+
+```npm test``` **Test script**
 
 ## Script features
 

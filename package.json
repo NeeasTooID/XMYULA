@@ -1,6 +1,6 @@
 {
     "name": "XMYULA-MD",
-    "version": "4.5.5",
+    "version": "4.5.6",
     "description": "Dont forget the star",
     "main": "index.js",
     "type": "module",
@@ -31,7 +31,6 @@
         "@adiwajshing/baileys": "npm:@whiskeysockets/baileys",
         "@bochilteam/scraper": "^4.2.4",
         "@vitalets/google-translate-api": "^9.2.0",
-        "aki-api": "npm:aki-api@latest",
         "api-dylux": "^1.8.5",
         "awesome-phonenumber": "^7.1.0",
         "axios": "^1.7.4",
