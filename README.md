@@ -13,7 +13,7 @@
 
 ```npm start``` **Used Terminal QR**
 
-```npm pairing``` **Used Pairing Code**
+```npm run pairing``` **Used Pairing Code**
 
 ```npm test``` **Test script**
 
