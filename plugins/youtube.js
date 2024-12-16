@@ -18,7 +18,7 @@ const handler = async (m, { conn, command, text, args, usedPrefix }) => {
   const infoText = `
 Silahkan pilih salah satu dari list di bawah dengan mereply pesan ini dengan angka yang kamu mau.
   `;
-  
+
   const limitedVideos = result.videos.slice(0, 10);
 
   const orderedLinks = limitedVideos.map((link, index) => {
@@ -49,7 +49,25 @@ handler.before = async (m, { conn }) => {
   const inputNumber = Number(choice);
   if (inputNumber >= 1 && inputNumber <= limitedVideos.length) {
     const selectedUrl = limitedVideos[inputNumber - 1].url;
-    let { result: yt } = await (await fetch(`https://api.betabotz.eu.org/api/download/ytmp3?url=${selectedUrl}&apikey=${lann}`)).json()
+
+    let yt;
+    try {
+      const response = await fetch(`https://api.betabotz.eu.org/api/download/ytmp3?url=${selectedUrl}&apikey=${lann}`);
+      const data = await response.json();
+      yt = data.result;
+    } catch (error) {
+      console.error('Betabotz request failed:', error);
+      try {
+        const response = await fetch(`https://api.botcahx.eu.org/api/dowloader/yt?url=${selectedUrl}&apikey=${global.btc}`);
+        const data = await response.json();
+        yt = data.result;
+      } catch (error) {
+        console.error('Botcahx request failed:', error);
+        delete conn.youtubeList[m.sender];
+        return m.reply('Kedua API gagal. Silakan coba lagi nanti.');
+      }
+    }
+
     let infoText = `*AUDIO INFORMATION*
 - *Title:* ${yt.title}
 - *Duration:* ${yt.duration}
@@ -61,34 +79,35 @@ handler.before = async (m, { conn }) => {
 AUDIO SEDANG DI KIRIM
 `;
 
-var pesan = conn.sendMessage(m.chat, {
-		text: infoText,
-		contextInfo: {
-			forwardingScore: 9999,
-			isForwarded: true,
-			forwardedNewsletterMessageInfo: {
-				newsletterJid: global.info.channel,
-				serverMessageId: null,
-				newsletterName: global.info.namechannel,
-			},
-			externalAdReply: {
-				title: `ANDA MEMILIH NOMOR ${inputNumber}`,
-				body: ``,
-				thumbnailUrl: yt.thumb,
-				sourceUrl: selectedUrl,
-				mediaType: 1,
-				renderLargerThumbnail: true
-			},
-		},
-	}, {});
-			let doc = {
-				audio: { url: yt.mp3 },
-				mimetype: 'audio/mp4',
-				fileName: `${yt.title}`
-			};
-			await conn.sendMessage(m.chat, doc, {
-				quoted: m
-			});
+    var pesan = conn.sendMessage(m.chat, {
+      text: infoText,
+      contextInfo: {
+        forwardingScore: 9999,
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+          newsletterJid: global.info.channel,
+          serverMessageId: null,
+          newsletterName: global.info.namechannel,
+        },
+        externalAdReply: {
+          title: `ANDA MEMILIH NOMOR ${inputNumber}`,
+          body: ``,
+          thumbnailUrl: yt.thumb,
+          sourceUrl: selectedUrl,
+          mediaType: 1,
+          renderLargerThumbnail: true
+        },
+      },
+    }, {});
+
+    let doc = {
+      audio: { url: yt.mp3 },
+      mimetype: 'audio/mp4',
+      fileName: `${yt.title}`
+    };
+    await conn.sendMessage(m.chat, doc, {
+      quoted: m
+    });
     conn.sendMessage(m.chat, { delete: key });
     clearTimeout(timeout);
     delete conn.youtubeList[m.sender];
