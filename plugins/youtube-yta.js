@@ -97,7 +97,7 @@ let handler = async (m, {
 					})
 				} catch (e) {
 					console.log(e)
-					m.reply(error
+					m.reply(error)
 					}
 				}
 			}
