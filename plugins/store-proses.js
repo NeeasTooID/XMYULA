@@ -2,23 +2,10 @@ import fs from 'fs';
 import fetch from 'node-fetch';
 import moment from 'moment-timezone';
 
-let waktu = moment().tz('Asia/Jakarta');
-
-var tampilTanggal = waktu.format('dddd DD MMMM YYYY');
-var tampilWaktu = `Jam : ${waktu.format('HH:mm:ss')}`;
-var tampilHari = '';
-
-if (waktu.hours() >= 0 && waktu.hours() < 3) {
-  tampilHari = 'Malam';
-} else if (waktu.hours() < 12) {
-  tampilHari = 'Pagi';
-} else if (waktu.hours() < 18) {
-  tampilHari = 'Siang';
-} else {
-  tampilHari = 'Sore';
-}
-
 let handler = async (m, { conn, usedPrefix: _p, args, command, text }) => {
+  let waktu = moment().tz('Asia/Jakarta');
+  let tampilTanggal = waktu.format('dddd DD MMMM YYYY');
+  let tampilWaktu = `${waktu.format('HH:mm:ss')}`;
   let who;
   if (m.isGroup) who = m.mentionedJid0 ? m.mentionedJid0 : m.quoted ? m.quoted.sender : text;
   else who = m.chat;
