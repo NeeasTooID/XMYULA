@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-  if (!args[0]) throw `*🚩 Masukkan URL lagu!*\n\nExample:\n${usedPrefix + command} https://open.spotify.com/track/2LKOHdMsL0K9KwcPRlJK2v`;
+  if (!args[0]) throw `*🚩 Masukkan URL atau judul lagu!*\n\nExample:\n${usedPrefix + command} https://open.spotify.com/track/3zakx7RAwdkUQlOoQ7SJRt\n\nExample:\n${usedPrefix + command} payung teduh`;
   if (args[0].match(/https:\/\/open.spotify.com/gi)) {
     m.reply(wait);
     try {
@@ -18,7 +18,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
         id,
         type
       } = jsons.result.data.artist;
-      let captionvid = `> Title: ${title}\n> ID: \`${id}\`\n> Duration: ${duration}\n> Type: ${type}`;
+      let captionvid = ` ∘ Title: ${title}\n∘ Id: ${id}\n∘ Duration: ${duration}\n∘ Type: ${type}`;
       let pesan = await conn.sendMessage(m.chat, {
         text: captionvid,
         contextInfo: {
@@ -34,20 +34,67 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
         }
       });
       await conn.sendMessage(m.chat, {
-             document: { url: url }, 
-             mimetype: 'audio/mpeg', 
-             fileName: `${title}.mp3`,
-             caption: ''
-             }, {quoted: m})
+        audio: {
+          url: url
+        },
+        mimetype: 'audio/mpeg',
+        contextInfo: {
+          externalAdReply: {
+            title: title,
+            body: "",
+            thumbnailUrl: thumbnail,
+            sourceUrl: args[0],
+            mediaType: 1,
+            showAdAttribution: true,
+            renderLargerThumbnail: true
+          }
+        }
+      }, {
+        quoted: m
+      });
+    } catch (e) {
+      throw `🚩 ${eror}`;
+    }
+  } else { 
+    m.reply(wait);
+    const text = args.join(" ");
+    try {
+      const api = await fetch(`https://api.botcahx.eu.org/api/search/spotify?query=${text}&apikey=${btc}`);
+      let json = await api.json();
+      let res = json.result.data;
+      let teks = "";
+      for (let i in res) {
+        teks += `*${parseInt(i) + 1}.* *Title:* ${res[i].title}\n`;
+        teks += `*Duration:* ${res[i].duration}\n`;
+        teks += `*Popularity:* ${res[i].popularity}\n`;
+        teks += `*Link:* ${res[i].url}\n\n`;
+      }
+      await conn.relayMessage(m.chat, {
+        extendedTextMessage: {
+          text: teks,
+          contextInfo: {
+            externalAdReply: {
+              title: `🔍 Search : ${text}`,
+              mediaType: 1,
+              previewType: 0,
+              showAdAttribution: true,
+              renderLargerThumbnail: true,
+              thumbnailUrl: 'https://www.scdn.co/i/_global/open-graph-default.png',
+              sourceUrl: ''
+            }
+          },
+          mentions: [m.sender]
+        }
+      }, {});
     } catch (e) {
       throw `🚩 ${eror}`;
     }
   }
 };
 
-handler.help = ['spotify'].map(v => v + ' <url>')
-handler.tags = ['downloader']
-handler.command = /^(spotify(a(audio)?|mp3)?)$/i
-handler.premium = true;
+handler.help = ['spotify'];
+handler.command = /^(spotify)$/i;
+handler.tags = ['downloader'];
+handler.limit = true;
 
-export default handler
+export default handler;
