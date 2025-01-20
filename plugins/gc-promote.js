@@ -1,6 +1,7 @@
 import { areJidsSameUser } from '@adiwajshing/baileys'
 let handler = async (m, { conn, participants }) => {
     let users = m.mentionedJid.filter(u => !areJidsSameUser(u, conn.user.id))
+    if (!users) return m.reply('Tag orang yang mau di Demote!')
     let promoteUser = []
     for (let user of users)
         if (user.endsWith('@s.whatsapp.net') && !(participants.find(v => areJidsSameUser(v.id, user)) || { admin: true }).admin) {
