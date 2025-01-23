@@ -4,8 +4,6 @@ let handler = async (m, { conn, participants }) => {
     let user = m.mentionedJid && m.mentionedJid[0]
     if (!user) return m.reply('Tag orang yang mau di Demote!')
             await conn.groupParticipantsUpdate(m.chat, [user], 'demote')
-        
-    m.reply('Succes')
 
 }
 handler.help = ['demote @tag']
