@@ -5,8 +5,6 @@ let handler = async (m, { conn, participants }) => {
     if (!user) return m.reply('Tag orang yang mau di Demote!')
         await conn.groupParticipantsUpdate(m.chat, [user], 'promote')
         delay(3000)
-        m.reply('Succes')
-
 }
 handler.help = ['promote @tag']
 handler.tags = ['group', 'adminry']
