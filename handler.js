@@ -944,8 +944,6 @@ export async function handler(chatUpdate) {
 					chat.antiToxic = false
 				if (!('antiBadword' in chat))
 					chat.antiBadword = false
-				if (!('simi' in chat))
-					chat.simi = false
 				if (!('nsfw' in chat))
 					chat.nsfw = false
 				if (!('rpg' in chat))
@@ -960,6 +958,8 @@ export async function handler(chatUpdate) {
 					chat.autolevelup = false
 				if (!isNumber(chat.expired))
 					chat.expired = 0
+			    if (!isNumber(chat.lastNotification))
+					chat.lastNotification = 0
 			} else
 				global.db.data.chats[m.chat] = {
 					isBanned: false,
@@ -990,7 +990,6 @@ export async function handler(chatUpdate) {
 					antiToxic: false,
 					antiVirtex: false,
 					antiBadword: false,
-					simi: false,
 					nsfw: false,
 					rpg: false,
 					game: false,
@@ -998,6 +997,7 @@ export async function handler(chatUpdate) {
 					teks: false,
 					autolevelup: false,
 					expired: 0,
+					lastNotification: 0,
 				}
 			let settings = global.db.data.settings[this.user.jid]
 			if (typeof settings !== 'object') global.db.data.settings[this.user.jid] = {}

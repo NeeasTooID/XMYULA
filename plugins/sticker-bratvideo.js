@@ -1,21 +1,10 @@
-import {
-	sticker
-} from '../lib/sticker.js'
+import { sticker } from '../lib/sticker.js'
 
-let handler = async (m, {
-	conn,
-	command,
-	text
-}) => {
+let handler = async (m, { conn, command, text }) => {
 	if (!text) return conn.reply(m.chat, 'Masukan Teksnya', m)
-	try {
-		const res = `https://api.betabotz.eu.org/api/maker/brat-video?text=${encodeURIComponent(text)}&apikey=${lann}`
-		let stiker = await sticker(false, res, stickpack, stickauth)
-		if (stiker) await conn.sendFile(m.chat, stiker, '', author, m, null)
-	} catch (e) {
-		m.reply(eror)
-		console.log(e)
-	}
+	const res = `https://api.betabotz.eu.org/api/maker/brat-video?text=${encodeURIComponent(text)}&apikey=${lann}`
+	let stiker = await sticker(false, res, stickpack, stickauth)
+    if (stiker) await conn.sendFile(m.chat, stiker, '', author, m, null)
 }
 handler.command = /^(brat(video|v))$/i
 handler.tags = ['sticker']
